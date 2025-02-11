@@ -32,25 +32,3 @@ private val drinkRetrofit = Retrofit.Builder()
     .build()
 
 val drinksService = drinkRetrofit.create(DrinksService::class.java)
-
-suspend fun fetchMealAndCocktail() = coroutineScope {
-    try {
-        val mealResponse = mealService.getMealCategories()
-        mealResponse.categories.forEach{
-            category->
-            println("Category: ${category.strCategory}")
-        }
-        val drinkResponse = drinksService.getDrinksCategories()
-        drinkResponse.drinks.forEach{
-            drink->
-            println("Drink: ${drink.strDrink}")
-        }
-
-    } catch (e: Exception) {
-        println("Error fetching data: ${e.message}")
-    }
-}
-
-fun main() = runBlocking{
-    fetchMealAndCocktail()
-}
