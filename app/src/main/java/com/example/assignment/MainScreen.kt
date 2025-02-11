@@ -34,18 +34,17 @@ fun MainScreen(modifier: Modifier = Modifier){
                 Text(text = "Error Occurred" , modifier.align(Alignment.Center))
             }
             else -> {
-                MealScreen(categories = viewstate.mealList)
+                LazyColumn() {
+                    items(viewstate.mealList){
+                        meal ->
+                        mealItem(category = meal)
+                    }
+                    items(viewstate.drinkList){
+                        drink ->
+                        drinkItem(category = drink)
+                    }
+                }
             }
-        }
-    }
-}
-
-@Composable
-fun MealScreen(categories: List<MealCategory>){
-    LazyColumn {
-        items(categories){
-            meal->
-            mealItem(category = meal)
         }
     }
 }
@@ -67,6 +66,29 @@ fun mealItem(category: MealCategory){
         )
         Text(
             text = category.strCategory,
+            color = Color.Black,
+            style = TextStyle(fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
+
+@Composable
+fun drinkItem(category: DrinkCategory){
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(
+            painter = rememberAsyncImagePainter(model = category.strDrinkThumb),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize()
+                .aspectRatio(1f)
+        )
+        Text(
+            text = category.strDrink,
             color = Color.Black,
             style = TextStyle(fontWeight = FontWeight.Bold),
             modifier = Modifier.padding(top = 4.dp)
