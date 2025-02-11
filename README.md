@@ -39,9 +39,6 @@ This is a Jetpack Compose-based Android application that fetches and displays me
 - **Search & Filters:** Add a search bar and filters to refine meal and drink categories.
 - **Dark Mode Support:** Implement theme switching for better accessibility.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
 This project demonstrates expertise in Jetpack Compose, Retrofit, Coroutines, and state management while building a practical restaurant application. 🚀
 
