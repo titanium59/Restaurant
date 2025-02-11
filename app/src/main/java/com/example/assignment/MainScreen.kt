@@ -1,6 +1,7 @@
 package com.example.assignment
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,9 +28,11 @@ import coil.compose.rememberAsyncImagePainter
 import androidx.compose.material3.Switch
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
-    val recipeViewModel: MainViewModel = viewModel()
-    val viewstate by recipeViewModel.responseState
+fun MainScreen(
+    modifier: Modifier = Modifier,
+    viewstate: MainViewModel.ApiResponseState,
+    navigateToMealDetail: (MealCategory) -> Unit,
+    navigateToDrinkDetail: (DrinkCategory) -> Unit) {
 
     var showDrinks by remember { mutableStateOf(false) }  // Toggle state
 
@@ -67,11 +70,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     LazyColumn {
                         if (!showDrinks) {
                             items(viewstate.mealList) { meal ->
-                                mealItem(category = meal)
+                                mealItem(category = meal , navigateToMealDetail)
                             }
                         } else {
                             items(viewstate.drinkList) { drink ->
-                                drinkItem(category = drink)
+                                drinkItem(category = drink , navigateToDrinkDetail)
                             }
                         }
                     }
@@ -83,11 +86,15 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
 // Meal Item
 @Composable
-fun mealItem(category: MealCategory) {
+fun mealItem(
+        category: MealCategory,
+        navigateToMealDetail: (MealCategory) -> Unit
+        ) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .clickable { navigateToMealDetail(category) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -108,11 +115,15 @@ fun mealItem(category: MealCategory) {
 
 // Drink Item
 @Composable
-fun drinkItem(category: DrinkCategory) {
+fun drinkItem(
+        category: DrinkCategory,
+        navigateToDrinkDetail: (DrinkCategory) -> Unit
+) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .clickable { navigateToDrinkDetail(category) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(

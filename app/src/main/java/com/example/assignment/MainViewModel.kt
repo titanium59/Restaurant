@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class MainViewModel : ViewModel() {
     private val _responseState = mutableStateOf(ApiResponseState())
