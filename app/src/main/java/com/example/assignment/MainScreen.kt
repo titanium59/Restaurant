@@ -1,16 +1,20 @@
 package com.example.assignment
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,7 +30,35 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import androidx.compose.material3.Switch
+import androidx.compose.ui.draw.clip
+import com.valentinilk.shimmer.shimmer
 
+@Composable
+fun ShimmerEffect() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(180.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .shimmer()  // Apply shimmer effect
+                .background(Color.Gray.copy(alpha = 0.3f))
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.6f)
+                .height(20.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .shimmer()
+                .background(Color.Gray.copy(alpha = 0.3f))
+        )
+    }
+}
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
@@ -39,7 +71,9 @@ fun MainScreen(
     Box(modifier = modifier.fillMaxSize()) {
         when {
             viewstate.loading -> {
-                Text(text = "Loading", modifier.align(Alignment.Center))
+                LazyColumn {
+                    items(5) { ShimmerEffect() }  // Show 5 shimmer placeholders while loading
+                }
             }
 
             viewstate.error != null -> {
