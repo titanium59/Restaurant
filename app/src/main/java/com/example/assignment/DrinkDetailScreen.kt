@@ -27,7 +27,7 @@ fun DrinkDetailScreen(category: DrinkCategory){
             painter = rememberAsyncImagePainter(model = category.strDrinkThumb),
             contentDescription = null,
             modifier = Modifier
-                .fillMaxSize()
+                .wrapContentSize()
                 .aspectRatio(1f)
         )
         Text(text = "Drink Description Here")
